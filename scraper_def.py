@@ -90,7 +90,7 @@ def recuperation_informations_page_livre(url_page_livre: str) -> Dict[str, str]:
         return data
 
 
-def telechargement_image_livre(image_url_value: str, upc_value: str):
+def telechargement_image_livre(image_url_value, upc_value):
     '''Fonction permettant de télécharger l'image de couverture du livre correspondant à l'url du livre en entrée.
     Toutes les images de couvertures seront placées dans le dossier '/Donnees_Resultat/Couvertures' présent dans le dossier de travail.
     Toutes les images de couvertures seront nommées par la valeur de l'UPC.'''
@@ -106,7 +106,7 @@ def telechargement_image_livre(image_url_value: str, upc_value: str):
     open(image_path, 'wb').write(r.content)
 
 
-def ecriture_csv(categorie_livre: str, liste_donnees_par_livre: List[Dict[str, str]]):
+def ecriture_csv(categorie_livre, liste_donnees_par_livre: List[Dict[str, str]]):
     '''Fonction pour créer le fichier CSV pour une catégorie donnée.
     Le fichier portera le nom de la catégorie entrée en argument.'''
 
@@ -173,13 +173,13 @@ def extraire_liste_livres(categorie_livre_url :str) -> List[str]:
 
 
 def ecriture_categorie(categorie_livre_url :str):
-    '''Function permettant d'extraire toutes les informations de tous les livres d'un même catégorie.
+    '''Fonction permettant d'extraire toutes les informations de tous les livres d'une même catégorie.
     Toutes ces informations seront écrites sur un même fichier CSV portant le nom de la categorie'''
 
     # Extraire liste des url de livres
     liste_livre = extraire_liste_livres(categorie_livre_url)
 
-    # Inititalisation CSV par catégorie
+    # Initialisation CSV par catégorie
     categorie: str = recuperation_informations_page_livre(liste_livre[0])['category']
 
     # Itération sur tous les livres dans la catégorie
@@ -190,7 +190,7 @@ def ecriture_categorie(categorie_livre_url :str):
     ecriture_csv(categorie, donnees_par_livre)
 
 
-def extraire_list_categorie_url_extraction(contenu_html: str) -> List[str]:
+def extraire_list_categorie_url_extraction(contenu_html) -> List[str]:
     # HTML PARSER
     soup = BeautifulSoup(contenu_html, 'html.parser')
     liste_categorie = []
@@ -213,7 +213,7 @@ def extraire_list_categorie_url_extraction(contenu_html: str) -> List[str]:
     
 
 def extraire_liste_categorie_url() -> List[str]:
-    '''Function permettant d'extraire dans une liste l'ensemble des categories disponibles sous forme d'url.'''
+    '''Fonction permettant d'extraire dans une liste l'ensemble des categories disponibles sous forme d'url.'''
 
     # Initialisation requête + liste_categorie
     response = requests.get(books_home_url)
@@ -239,5 +239,4 @@ def extraire_tout():
         print('------------')
 
 
-if __name__ == '__main__':
-    extraire_tout()
+extraire_tout()
