@@ -19,7 +19,7 @@ cd P2_OC_BULU
 ### 2. Création d'un environnement virtuel 
 Créez l'environnement virtuel env.
 ```bash
-python3 -m venv env
+python -m venv env
 ```
 
 ### 3. Activation et installation de votre environnement virtuel 
