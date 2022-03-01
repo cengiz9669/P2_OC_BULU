@@ -1,5 +1,4 @@
 from typing import Any, Dict, List
-from time import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -17,7 +16,7 @@ review_ratings_values = {
     'Five': '5',
 }
 
-def recuperation_informations_page_livre(url_page_livre: str) -> Dict[str, str]:
+def recuperation_informations_page_livre(url_page_livre) -> Dict[str, str]:
     '''Fonction permettant d'extraire les informations d'un livre dans une liste en sortie à partir de son url.'''
 
     # Initialisation requête + data
@@ -40,7 +39,7 @@ def recuperation_informations_page_livre(url_page_livre: str) -> Dict[str, str]:
     # Récupération des informations
     if response.ok:
         # URL de la page produit ('product_page_url')
-        data['product_page_url'] = str(url_page_livre)
+        data['product_page_url'] = url_page_livre
 
         # HTML PARSER
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -131,15 +130,15 @@ def ecriture_csv(categorie_livre, liste_donnees_par_livre: List[Dict[str, str]])
     nom_du_csv = repertoire_de_travail + '/Donnees_Resultat/' + str(categorie_livre) + '.csv'
     print(f'Ecriture du csv {nom_du_csv}')
 
-    with open(nom_du_csv, 'w', newline='', encoding="utf-8") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=headers_csv)
+    with open(nom_du_csv, 'w', newline='', encoding="utf8") as csvfile:
+        writer = csv.DictWriter(csvfile, delimiter = ";", fieldnames=headers_csv)
         writer.writeheader()
         writer.writerows(liste_donnees_par_livre)
 
     print(f'{len(liste_donnees_par_livre)} livres écrits pour la catégorie {categorie_livre}.')
 
 
-def extraire_liste_livres(categorie_livre_url :str) -> List[str]:
+def extraire_liste_livres(categorie_livre_url) -> List[str]:
     '''Fonction permettant d'obtenir en sortie une liste contenant l'url de chacun des livres présents dans la catégorie.
     Cette fonction est récursive pour tenir compte de la pagination.'''
 
@@ -172,7 +171,7 @@ def extraire_liste_livres(categorie_livre_url :str) -> List[str]:
         return donnees_liste_livre
 
 
-def ecriture_categorie(categorie_livre_url :str):
+def ecriture_categorie(categorie_livre_url):
     '''Fonction permettant d'extraire toutes les informations de tous les livres d'une même catégorie.
     Toutes ces informations seront écrites sur un même fichier CSV portant le nom de la categorie'''
 
