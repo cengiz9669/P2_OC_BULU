@@ -19,7 +19,7 @@ cd P2_OC_BULU
 ### 2. Création d'un environnement virtuel 
 Créez l'environnement virtuel env.
 ```bash
-python3 -m venv env
+python -m venv env
 ```
 
 ### 3. Activation et installation de votre environnement virtuel 
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 
 Lancer simplement le script python scraper.py présent à la source du dossier de travail.
 ```python
-python scraper.py
+python scraper_def.py
 ```
 
 ## Résultat
