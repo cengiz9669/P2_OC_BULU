@@ -39,7 +39,7 @@ pip install -r requirements.txt
 
 Lancer simplement le script python scraper.py présent à la source du dossier de travail.
 ```python
-python scraper_def.py
+python3 scraper_def.py
 ```
 
 ## Résultat
