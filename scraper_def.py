@@ -52,8 +52,8 @@ def recuperation_informations_page_livre(url_page_livre) -> Dict[str, str]:
         # Récupération du block 'Product Information'
         elements =[]
         elements = soup.find_all("td")
-        price_including_tax = elements[3].text[1:]
-        price_excluding_tax = elements[2].text[1:]
+        price_including_tax = elements[3].text
+        price_excluding_tax = elements[2].text
         number_available_string = elements[5].text
         number_available_string_list = number_available_string.split()
         number_string = number_available_string_list[2].replace("(", "")
