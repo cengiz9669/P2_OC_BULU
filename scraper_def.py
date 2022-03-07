@@ -21,7 +21,7 @@ def recuperation_informations_page_livre(url_page_livre) -> Dict[str, str]:
 
     # Initialisation requête + data
     response = requests.get(url_page_livre)
-
+    response.encoding = response.apparent_encoding
 
     data = {
         'product_page_url': '',
@@ -67,7 +67,7 @@ def recuperation_informations_page_livre(url_page_livre) -> Dict[str, str]:
 
         # Description Produit ('product_description')
         blocks_texte = soup.find_all('p')
-        data['product_description'] = str(blocks_texte[3].text)
+        data['product_description'] = blocks_texte[3].text
 
         # Catégorie ('category')
         block_categories = soup.find('ul', class_='breadcrumb')
@@ -144,6 +144,7 @@ def extraire_liste_livres(categorie_livre_url) -> List[str]:
 
     # Initialisation requête
     response = requests.get(categorie_livre_url)
+    response.encoding = response.apparent_encoding
 
     # Récupération des informations
     if response.ok:
@@ -216,6 +217,8 @@ def extraire_liste_categorie_url() -> List[str]:
 
     # Initialisation requête + liste_categorie
     response = requests.get(books_home_url)
+    response.encoding = response.apparent_encoding
+    
     # Récupération des informations
     if response.ok:
         categories = extraire_list_categorie_url_extraction(response.text)
